@@ -71602,6 +71602,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       }
 
       state.role = role;
+      console.log(payload.user);
     },
     setSupplierLayout: function setSupplierLayout(state, payload) {
       state.supplierLayout = payload;

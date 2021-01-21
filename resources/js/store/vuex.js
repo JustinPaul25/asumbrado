@@ -44,6 +44,7 @@ const store = new Vuex.Store({
                 role = 'view_only'
             }
             state.role = role
+            console.log(payload.user)
         },
         setSupplierLayout (state, payload) {
             state.supplierLayout = payload
