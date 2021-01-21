@@ -11,6 +11,11 @@ import user from './modules/user'
 
 const store = new Vuex.Store({
     state: {
+        config: {
+            locale: '',
+            baseURL: '',
+        },
+        role: '',
     },
 
     modules: {
@@ -22,9 +27,27 @@ const store = new Vuex.Store({
     },
 
     getters: {
+        config: state => state.config,
+        supplierLayout: state => state.supplierLayout,
     },
 
     mutations: {
+        setConfig (state, payload) {
+            var role = ''
+            if(payload.is_admin == true) {
+                role = 'admin'
+            }
+            if(payload.is_mid == true) {
+                role = 'mid'
+            }
+            if(payload.is_view_only == true) {
+                role = 'view_only'
+            }
+            state.role = role
+        },
+        setSupplierLayout (state, payload) {
+            state.supplierLayout = payload
+        }
     }
 })
 

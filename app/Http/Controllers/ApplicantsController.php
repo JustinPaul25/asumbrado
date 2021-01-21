@@ -7,6 +7,7 @@ use App\Models\Lot;
 use App\Models\Agent;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Applicant\ApplicantCollection;
 use App\Http\Requests\Applicant\ApplicantStoreRequest;
 use App\Http\Resources\Applicant\Applicant as ApplicantResource;
@@ -22,7 +23,7 @@ class ApplicantsController extends Controller
             $status = "Partial Payment" ;
         }
 
-        beginTransaction();
+        DB::beginTransaction();
         try {
             if($request->input('id') == '') {
                 $lot = Lot::create([
@@ -55,9 +56,9 @@ class ApplicantsController extends Controller
                 'or_no' => $request->input('or_no'),
                 'amount' => $request->input('downpayment')
             ]);
-            commit();
+            DB::commit();
         } catch (Exception $e) {
-            rollback();
+            DB::rollback();
             throw $e;
         }
 
@@ -87,7 +88,7 @@ class ApplicantsController extends Controller
             $status = 'Partial';
         }
 
-        beginTransaction();
+        DB::beginTransaction();
         try {
             $applicant = Applicant::create([
                 'date_applied' => Carbon::now(),
@@ -143,9 +144,9 @@ class ApplicantsController extends Controller
                 'total_recievable' => $request->input('initial_payment'),
                 'balance' => $balance
             ]);
-        commit();
+        DB::commit();
         } catch (Exception $e) {
-            rollback();
+            DB::rollback();
             throw $e;
         }
 

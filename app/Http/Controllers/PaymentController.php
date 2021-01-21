@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Lot;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
     public function pay(Lot $lot, Request $request)
     {
-        beginTransaction();
+        DB::beginTransaction();
         try {
             $applicant = Applicant::where('id', $lot->applicant_id)->first();
 
@@ -36,9 +37,9 @@ class PaymentController extends Controller
                 'status' => $lot_status
             ]);
 
-            commit();
+            DB::commit();
         } catch (Exception $e) {
-            rollback();
+            DB::rollback();
             throw $e;
         }
 

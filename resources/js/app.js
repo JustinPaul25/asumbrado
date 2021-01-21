@@ -27,6 +27,8 @@ Vue.use(VModal, { dynamicDefault: { draggable: true } })
 
 Vue.mixin(global)
 
+store.commit('setConfig', window.config)
+
 const app = new Vue({
     el: '#app',
     store,

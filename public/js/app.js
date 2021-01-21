@@ -69856,6 +69856,7 @@ Vue.use(vue_js_modal_dist_index_nocss_js__WEBPACK_IMPORTED_MODULE_3___default.a,
   }
 });
 Vue.mixin(_mixins__WEBPACK_IMPORTED_MODULE_8__["global"]);
+_store_vuex__WEBPACK_IMPORTED_MODULE_0__["default"].commit('setConfig', window.config);
 var app = new Vue({
   el: '#app',
   store: _store_vuex__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -71562,7 +71563,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {},
+  state: {
+    config: {
+      locale: '',
+      baseURL: ''
+    },
+    role: ''
+  },
   modules: {
     lot: _modules_lot__WEBPACK_IMPORTED_MODULE_2__["default"],
     agent: _modules_agent__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -71570,8 +71577,36 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     transaction: _modules_transaction__WEBPACK_IMPORTED_MODULE_5__["default"],
     user: _modules_user__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  getters: {},
-  mutations: {}
+  getters: {
+    config: function config(state) {
+      return state.config;
+    },
+    supplierLayout: function supplierLayout(state) {
+      return state.supplierLayout;
+    }
+  },
+  mutations: {
+    setConfig: function setConfig(state, payload) {
+      var role = '';
+
+      if (payload.is_admin == true) {
+        role = 'admin';
+      }
+
+      if (payload.is_mid == true) {
+        role = 'mid';
+      }
+
+      if (payload.is_view_only == true) {
+        role = 'view_only';
+      }
+
+      state.role = role;
+    },
+    setSupplierLayout: function setSupplierLayout(state, payload) {
+      state.supplierLayout = payload;
+    }
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
