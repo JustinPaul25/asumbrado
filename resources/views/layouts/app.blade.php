@@ -71,7 +71,7 @@
             is_admin: "{{ auth()->check() ? auth()->user()->isAdmin() : false }}",
             is_mid: "{{ auth()->check() ? auth()->user()->isMid() : false }}",
             is_view_only: "{{ auth()->check() ? auth()->user()->isViewOnly() : false }}",
-            user: "{{ auth()->check() ? auth()->user()->id() : null }}"
+            user: "{{ auth()->check() ? auth()->user()->id : null }}"
         };
     </script>
 </body>
